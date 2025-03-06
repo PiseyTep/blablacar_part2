@@ -1,4 +1,5 @@
 import 'package:blablacar_part2/model/ride/locations.dart';
+import 'package:blablacar_part2/repository/mock/mock_locations_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../../service/locations_service.dart';
@@ -19,7 +20,7 @@ class BlaLocationPicker extends StatefulWidget {
 
 class _BlaLocationPickerState extends State<BlaLocationPicker> {
   List<Location> filteredLocations = [];
-
+  late LocationsService locationsService;
   // ----------------------------------
   // Initialize the Form attributes
   // ----------------------------------
@@ -27,6 +28,9 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
   @override
   void initState() {
     super.initState();
+
+    // Initialize LocationsService with MockLocationsRepository for location  cambodia
+    locationsService = LocationsService(MockLocationsRepository());
 
     if (widget.initLocation != null) {
       filteredLocations = getLocationsFor(widget.initLocation!.name);
@@ -55,7 +59,8 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
   }
 
   List<Location> getLocationsFor(String text) {
-    return LocationsService.availableLocations
+    return locationsService
+        .getAvailableLocations()
         .where(
           (location) =>
               location.name.toUpperCase().contains(text.toUpperCase()),
