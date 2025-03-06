@@ -9,12 +9,15 @@ class User {
   final String profilePicture;
 
   final bool verifiedProfile;
+  final bool acceptsPets;
 
-  User(
-      {required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.phone,
-      required this.profilePicture,
-      required this.verifiedProfile});
+  User({
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.profilePicture,
+    required this.verifiedProfile,
+    this.acceptsPets = false,
+  });
 }
